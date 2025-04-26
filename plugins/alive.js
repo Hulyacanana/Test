@@ -1,88 +1,140 @@
-const { cmd, commands } = require('../command');
-const os = require("os");
-const { runtime } = require('../lib/functions');
-
+const config = require('../config')
+const {cmd , commands} = require('../command')
+const os = require("os")
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson} = require('../lib/functions')
 cmd({
     pattern: "alive",
-    alias: ["status", "runtime", "uptime"],
-    desc: "Check uptime and system status",
+    desc: "Check bot online or no.",
     category: "main",
-    react: "📟",
     filename: __filename
 },
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-    try {
-        // Generate system status message
-        const status = `╭━━〔 *Chethiya_MD* 〕━━┈⊷
-┃◈╭─────────────·๏
-┃◈┃• *⏳Uptime*:  ${runtime(process.uptime())} 
-┃◈┃• *📟 Ram usage*: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${(os.totalmem() / 1024 / 1024).toFixed(2)}MB
-┃◈┃• *⚙️ HostName*: ${os.hostname()}
-┃◈┃• *👨‍💻 Owner*: Chethiya wedasinga 
-┃◈┃• *🧬 Version*: 0.0.1 BETA
-┃◈└───────────┈⊷
-╰──────────────┈⊷
-👋  𝐇𝐈, _𝐈❜𝐀𝐌👾𝐀𝐋𝐈𝐕𝐄🇱🇰𝐍𝐎𝐖_ 👾
-      
-*╭
-*╰──────────●●►*
-*╭──────────●●►*
-*│* *Hello , I am alive now!!*
-*╰──────────●●►* 
-╭━━━━❮ *𝚂𝚈𝚂𝚃𝙴𝙼* ❯━⊷ 
-┃◇╭━━〔《*Menu List* 》〕━━┈⊷
-┃◈╭─────────────·๏
-┃◈┃• Quranmenu 📕
-┃◈┃• Prayertime 📖
-┃◈┃• Aimenu 🥏
-┃◈┃• Anmiemenu 🎭
-┃◈┃• Convertmenu 🔮
-┃◈┃• Funmenu 🧮
-┃◈┃• Bug menu 🔖
-┃◈┃• Dlmenu 💴
-┃◈┃• Listcmd 📚
-┃◈┃• Mainmenu 🎛
-┃◈┃• Groupmenu 🔘
-┃◈┃• Allmenu 👾
-┃◈┃• Ownermenu 🤴
-┃◈┃• Othermenu 🎚
-┃◈┃• xxx 🔎
-┃◈┃• logo <text> 🔎
-┃◈┃• News menu 📰
-┃◈┃• repo 📒
-┃◈└───────────┈⊷
-╰──────────────┈⊷
-*🔢 Reply below number*
+async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
+try{
+return await conn.sendMessage(from,{image: {url: config.ALIVE_IMG},caption: config.ALIVE_MSG},{quoted: mek})
+}catch(e){
+console.log(e)
+reply(`${e}`)
+}
+})
 
->*Official Website* https://chethiyabydila.vercel.app/
-> *Github Repo:* https://github.com/ChethiyaMD.git
+//============ping=======
+cmd({
+    pattern: "ping",
+    react: "⚡",
+    alias: ["speed"],
+    desc: "Check bot\'s ping",
+    category: "main",
+    use: '.ping',
+    filename: __filename
+},
+async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
+try{
+var inital = new Date().getTime();
+let ping = await conn.sendMessage(from , { text: '```Pinging To index.js!!!```'  }, { quoted: mek } )
+var final = new Date().getTime();
+return await conn.edit(ping, '*Pong*\n *' + (final - inital) + ' ms* ' )
+} catch (e) {
+reply(`${e}`)
+console.log(e)
+}
+})
 
-*┌───────────╶╶╶╾⦁⦂⦁*
-> *joing my WhatsApp Channel*
-https://whatsapp.com/channel/0029Vb5pEQGHgZWVgS0JhS2e
-╰━━━━━━━━━━━━━━━━━⊷
-╔═════════════●●►
-╚ ❯
-> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ  chethiya wedasiga `;
+//===========menu========
+cmd({
+    pattern: "menu",
+    desc: "To get the menu.",
+    react: "📜",
+    category: "main",
+    filename: __filename
+},
+async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
+try{
+    
+let menu = {
+main: '',
+download: '',
+group: '',
+owner: '',
+convert: '',
+ai: '',
+tools: '',
+search: '',
+fun: '',
+voice: '',
+other: ''
+};
 
-        // Send the status message with an image
-        await conn.sendMessage(from, { 
-            image: { url: `https://files.catbox.moe/b7hkxj.jpg` },  // Image URL
-            caption: status,
-            contextInfo: {
-                mentionedJid: [m.sender],
-                forwardingScore: 999,
-                isForwarded: true,
-                forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363354023106228@newsletter',
-                    newsletterName: 'chethiya_MD,
-                    serverMessageId: 143
-                }
-            }
-        }, { quoted: mek });
+for (let i = 0; i < commands.length; i++) {
+if (commands[i].pattern && !commands[i].dontAddCommandList) {
+menu[commands[i].category] += `.${commands[i].pattern}\n`;
+ }
+}
 
-    } catch (e) {
-        console.error("Error in alive command:", e);
-        reply(`An error occurred: ${e.message}`);
-    }
-});
+let madeMenu = `
+👋 𝐇𝐄𝐋𝐋𝐎, ${pushname}!
+
+✨ 𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 NADU_MD-BOT ✨ 
+╭─「 ᴄᴏᴍᴍᴀɴᴅꜱ ᴘᴀɴᴇʟ」
+│◈ яυηтιмє * ${runtime(process.uptime())}
+│◈ σωηєя ηαмє * NADU-MD
+│◈ σωηєя ηυмвєя * 94741185866
+╰──────────●●►
+╭──────────●●►
+ 📥 *𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐌𝐞𝐧𝐮*
+  ───────
+ ${menu.download}
+╰───────────●●►
+╭──────────●●►
+ 👾 *𝐀𝐢 𝐌𝐞𝐧𝐮*
+  ───────
+ ${menu.ai}
+╰───────────●●►
+╭──────────●●►
+ 🔧 *𝐌𝐚𝐢𝐧 𝐌𝐞𝐧𝐮*
+  ───────
+ ${menu.main}
+╰───────────●●►
+╭──────────●●►
+ 🎉 *𝐅𝐮𝐧 𝐌𝐞𝐧𝐮*
+  ───────
+ ${menu.fun}
+╰───────────●●►
+╭──────────●●►
+ 🔄 *𝐂𝐨𝐧𝐯𝐞𝐫𝐭 𝐌𝐞𝐧𝐮*
+  ───────
+ ${menu.convert}
+╰───────────●●►
+╭──────────●●►
+ 🔍 *𝐒𝐞𝐚𝐫𝐜𝐡 𝐌𝐞𝐧𝐮*
+  ───────
+ ${menu.search}
+╰───────────●●►
+╭──────────●●►
+ 👥 *𝐆𝐫𝐨𝐮𝐩 𝐌𝐞𝐧𝐮*
+  ───────
+ ${menu.group}
+╰───────────●●►
+╭──────────●●►
+ 🔒 *𝐎𝐰𝐧𝐞𝐫 𝐌𝐞𝐧𝐮*
+  ───────
+ ${menu.owner}
+╰───────────●●►
+╭──────────●●►
+ ⚙️ *𝐎𝐭𝐡𝐞𝐫 𝐌𝐞𝐧𝐮*
+  ───────
+ ${menu.other}
+╰───────────●●►
+╭──────────●●►
+ 🛠️ *𝐓𝐨𝐨𝐥𝐬 𝐌𝐞𝐧𝐮*
+  ───────
+ ${menu.tools}
+╰───────────●●►
+
+> *©ᴘᴏᴡᴇʀᴇᴅ ʙʏ NADU-MD*`
+
+return await conn.sendMessage(from,{image: {url: `https://i.ibb.co/bHXBV08/9242c844b83f7bf9.jpg`},caption:madeMenu},{quoted: mek})
+}catch(e){
+console.log(e)
+reply(`𝔼𝕣𝕣𝕣𝕠𝕣`)
+}
+})
