@@ -5,9 +5,9 @@ function convertToBool(text, fault = 'true') {
     return text === fault ? true : false;
 }
 module.exports = {
-SESSION_ID: process.env.SESSION_ID || "WioQEDyA#VnJwFF6C6JCZ9oTDkNRYtl58sJ3MUDAJy6OZGX-v_kg",
-ALIVE_IMG : process.env.ALIVE_IMG || "https://i.ibb.co/QvRR1nHz/3462.jpg",
-ALIVE_MSG : process.env.ALIVE_MSG || "*🤖𝐇𝐞𝐲 𝐈'𝐦 💃EMDI ENXKILLER 🤍 𝐖𝐡𝐚𝐭𝐬𝐀𝐩𝐩 𝐁𝐨𝐭⚡*\n\n*🔔𝐈'𝐦 𝐀𝐥𝐢𝐯𝐞 𝐍𝐨𝐰🎠*\n\n*⚖️CREAT BY DILA THANK FOR USING ME   MY MAIN HOPE IS HELP YOU MY VERSION 0.1 IS COMMING SOON IF YOU WANT DEPLOY ME CONTACT MY OWNER , ENJOY BEST 👌USING ME 😊 prowed by dila",
+SESSION_ID: process.env.SESSION_ID || "IKFjwKiS#sNX0GfjK6qxZOPEzdEPvbNqHFmKnb__Dwy4KtR_n7zo",
+ALIVE_IMG : process.env.ALIVE_IMG || "https://i.ibb.co/jqN8NHQ/4838.jpg",
+ALIVE_MSG : process.env.ALIVE_MSG || "*🤖 💃𝐇𝐞𝐲 𝐈'𝐦 EᗰᗪI Eᑎ᙭KIᒪᒪEᖇ  𝐖𝐚 𝐁𝐨T 𝐈'𝐦 𝐀𝐥𝐢𝐯𝐞 𝐍𝐨𝐰🎠𝙲𝚛𝚎𝚊𝚝𝚎𝚍 𝚋𝚢 𝙳𝚒𝚕𝚊 𝚊𝚗𝚍 𝚆𝚒𝚜𝚑𝚠𝚊𝚓𝚒𝚝𝚑. 𝚃𝚑𝚊𝚗𝚔𝚜 𝚏𝚘𝚛 𝚞𝚜𝚒𝚗𝚐 𝚖𝚎. 𝙼𝚢 𝚖𝚊𝚒𝚗 𝚑𝚘𝚙𝚎 𝚒𝚜 𝚑𝚎𝚕𝚙 𝚝𝚘 𝚢𝚘𝚞. 𝙼𝚢 𝚟𝚎𝚛𝚜𝚒𝚘𝚗 𝚒𝚜 1.0. 𝙸𝚏 𝚢𝚘𝚞 𝚠𝚊𝚗𝚝 𝚝𝚘 𝚍𝚎𝚙𝚕𝚘𝚢 𝚖𝚎 𝚐𝚎𝚝 𝚖𝚢 𝚛𝚎𝚙𝚘𝚜𝚒𝚝𝚘𝚛𝚢. 𝙴𝚗𝚓𝚘𝚢 𝚋𝚎𝚜𝚝✨©ᴘᴏᴡᴇʀᴇᴅ ʙʏ Dila & wishwajit",
 AUTO_READ_STATUS: process.env.AUTO_READ_STATUS || "true",
 AUTO_STATUS_REACT: process.env.AUTO_STATUS_REACT || "true",
 // make true if you want auto reply on status 
